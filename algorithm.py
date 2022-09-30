@@ -5,8 +5,10 @@ from pymoo.core.mixed import MixedVariableGA
 from pymoo.core.variable import Real, Integer
 from pymoo.optimize import minimize
 
+# Get problem
 problem = MultiObjectiveMixedVariableProblem()
 
+# Get algorithm
 algorithm = MixedVariableGA(pop_size=20, survival=RankAndCrowdingSurvival())
 
 res = minimize(problem,

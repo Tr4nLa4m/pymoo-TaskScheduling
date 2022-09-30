@@ -1,21 +1,44 @@
 import sys
 import io
-
+# Import load to load data
 import load
+# Import helper
 from helperModules import getTimeStamp
-
+# Use to print utf-8 encoded
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
-startTime, endTime, endTimeResource, avgSkill, baseSalary, endTimeOrders = dict(), dict(), dict(), dict(), dict(), dict()
+#----- Declare init variables  -----#
 
-ORDERS = load.data["bills"]  #Array of orders
-TASKS = load.data["fromStockJobTasks"]
-EMPLOYEES = load.data["fromStockHumanResources"]
-MACHINES = load.data["fromStockMachineResources"]
+# Start time of each Task
+startTime = dict()
 
+# End time of each Task
+endTime = dict()
 
-# Init Start time and End time each task 
+# Start time of each Order
+startTimeOrders = dict()
+
+# End time of each Order
+endTimeOrders = dict()
+
+# Endtime using resource (employee, machine)
+endTimeResource = dict()
+
+# Average skil of each employee
+avgSkill = dict()
+
+# Base salary of each employee (per hour)
+baseSalary = dict()
+
+#------- Load raw data from json data ---------#
+ORDERS = load.data["bills"]  # List of orders
+TASKS = load.data["fromStockJobTasks"]    # List of tasks
+EMPLOYEES = load.data["fromStockHumanResources"]    # List of employees
+MACHINES = load.data["fromStockMachineResources"]   # List of machines
+
+#---------- Calculate init data ------------#
+# Init Start time and End time of each task 
 for order in ORDERS :
     orderId = order['id']
     startTime[orderId] = dict()
@@ -48,9 +71,10 @@ for employee in EMPLOYEES:
     employeeId = employee['id']
     baseSalary[employeeId] = employee['cost']
 
-# Init endTime of orders:
+# Init endTime and startTime of orders:
 for order in ORDERS:
     endTimeOrders[order['id']] = getTimeStamp(order['deadline'])
+    startTimeOrders[order['id']] = getTimeStamp(order['startTime'])
 
 # Init list employee Id
 listEmployeeIds = list()

@@ -1,42 +1,13 @@
+#------- Helper method  ----------#
+
 from datetime import datetime, timedelta
-from machineEntity import Machine
-from taskEntity import Task
-from employeeEntity import Employee
 
-def getListTask(orders, tasks) :
-    listTask = []
-
-    for order in orders :
-        for item in order["goods"]:
-            for task in tasks:
-                t = Task(f"{order['id']} {item['goodId']} {task['id']}", task['estimatedDuration'] )
-                if task["requiredAssets"] : 
-                    t.setRequiredMachine(task["requiredAssets"])
-                task.setStartTime(getTimeStamp(order["startTime"]))
-                task.setEndTime(getTimeStamp(order["startTime"]))
-                task.setPrecedingTask(task["preceedingTasks"])
-                listTask.append(t)
-
-    return listTask
-
-def getListHuman(employees) :
-    listEmployees = []
-
-    for employee in employees :
-        listEmployees.append(Employee(f"{employee['id']}", employee['cost'], employee['skillLevel']))
-    
-    return listEmployees
-
-def getListMachine(machines) :
-    listMachines = []
-
-    for machine in machines :
-        listMachines.append(Machine(f"{machine['id']}"))
-
+# Convert a String time to timestamp
 def getTimeStamp(stringTime):
     res = datetime.strptime(stringTime, '%d-%m-%Y %H:%M')
     return res.timestamp()
 
+# Calculate duration task time in practical from employee and skill level
 def calculateDuration(task, avgSkill, employeeId):
     oldDuration = task["estimatedDuration"] * 3600
     taskId = task["id"]
@@ -49,6 +20,7 @@ def calculateDuration(task, avgSkill, employeeId):
     newDuration = oldDuration * (1 - (avgSkill[employeeId][taskId] - avgSkillLevel) / avgSkillLevel)
     return newDuration
 
+# Calculate the start time in practical if it violated shift time
 def getStartTimeShift(startTime, duration):
     startDateTime = datetime.fromtimestamp(startTime)
     endDateTime = datetime.fromtimestamp(startTime + duration)
@@ -60,6 +32,7 @@ def getStartTimeShift(startTime, duration):
         startDateTime = datetime(nextDay.year, nextDay.month, nextDay.day, 8, 0, 0)
     return startDateTime.timestamp()
 
+# Calculate cost of each employee with duration
 def getCost(employeeId, duration, baseSalary):
     return baseSalary[employeeId] * duration / 3600
 #test
