@@ -1,34 +1,34 @@
 {
   "bills": [
     {
-      "id": "BIRE20220811",
+      "id": "Order1",
       "email": "tranlamiter@gmail.com",
       "goods": [
         {
-          "goodId": "MT001",
+          "goodId": "Good1",
           "quantity": 100,
           "weight": 1,
           "name": "Jucca Nước"
         },
         {
-          "goodId": "MT002",
+          "goodId": "Good2",
           "quantity": 100,
           "weight": 1,
           "name": "Propylen Glycon"
         },{
-          "goodId": "EQ001",
+          "goodId": "Good3",
           "quantity": 100,
           "weight": 1,
           "name": "Bình ắc quy"
         },
         {
-          "goodId": "EQ002",
+          "goodId": "Good4",
           "quantity": 100,
           "weight": 1,
           "name": "Máy nén"
         },
         {
-          "goodId": "PR001",
+          "goodId": "Good5",
           "quantity": 100,
           "weight": 1,
           "name": "ĐƯỜNG ACESULFAME K"
@@ -57,7 +57,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.4,
         "62b1a3ac29da55a4b049ae89" : 0.6
       },
-      "cost": 85227.27272727272
+      "cost": 33000
     },
     {
       "fullName": "Phạm Lê Đức",
@@ -76,7 +76,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.4,
         "62b1a3ac29da55a4b049ae89" : 0.4
       },
-      "cost": 79545.45454545454
+      "cost": 27750
     },
     {
       "fullName": "Lưu Đức Thành",
@@ -95,7 +95,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.4,
         "62b1a3ac29da55a4b049ae89" : 0.3
       },
-      "cost": 56818.181818181816
+      "cost": 25250
     },
     {
       "fullName": "Nguyễn Văn Danh",
@@ -114,7 +114,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.5,
         "62b1a3ac29da55a4b049ae89" : 0.4
       },
-      "cost": 68181.81818181818
+      "cost": 27250
     },
     {
       "fullName": "Trần Bình Minh",
@@ -133,7 +133,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.4,
         "62b1a3ac29da55a4b049ae89" : 0.4
       },
-      "cost": 45454.545454545456
+      "cost": 26250
     },
     {
       "fullName": "Nguyễn Thị Nhung",
@@ -152,7 +152,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.2,
         "62b1a3ac29da55a4b049ae89" : 0.4
       },
-      "cost": 5681.818181818182
+      "cost": 24750
     },
     {
       "fullName": "Trần Minh Đức",
@@ -171,7 +171,7 @@
         "62b1a3ac29da55a4b049ae88" : 0.2,
         "62b1a3ac29da55a4b049ae89" : 0.4
       },
-      "cost": 6534.090909090909
+      "cost": 25750
     }
   ],
   "fromStockMachineResources": [

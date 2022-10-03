@@ -2,12 +2,11 @@ from pymoo.core.problem import ElementwiseProblem
 from pymoo.core.variable import Real, Integer, Choice, Binary
 from helperModules import calculateDuration, getStartTimeShift, getCost
 
-from initializeData import startTime, baseSalary, endTime, endTimeOrders, endTimeResource,listEmployeeIds,  avgSkill, TASKS, MACHINES, EMPLOYEES, ORDERS
-e, m = dict(), dict()
+from initializeData import startTime, baseSalary, endTime, endTimeOrders, endTimeResource,listEmployeeIds, e, m,  avgSkill, TASKS, MACHINES, EMPLOYEES, ORDERS
 
 class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
 
-    
+    # Init decision variables for problem
     def __init__(self, **kwargs):
         
         vars = dict()
@@ -22,6 +21,7 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
         super().__init__(vars=vars, n_obj=3, **kwargs)
     
 
+    # Evaluate values of fitness functions
     def _evaluate(self, X, out, *args, **kwargs):
         for order in ORDERS :
             orderId = order['id']
@@ -38,21 +38,22 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
                         m[orderId][processId][taskId] = X[f"m {orderId} {processId} {taskId}"]
                     
             
-
+        # Get value of fitness functions 
         schedule = self.calcSchedule()
         f1 = schedule['totalCost']
-        f2 = schedule['endTimeAll']
-        f3 = schedule['numTaskNotOnTime']
+        f2 = schedule['endDateTime'] - schedule['schedule'][0]['startTime']
+        f3 = schedule['numOrderNotOnTime']
         
 
         out["F"] = f1, f2, f3
 
+    # Evaluate schedule   
     def calcSchedule(self) :
         scheduleWorkforce = dict()
         scheduleWorkforce['schedule'] = list()
+        orderViolatedDeadline = list()
         totalCost = 0
         endTimeAll = 0
-        numTaskNotOnTime = 0
         for task in TASKS:
             for order in ORDERS :
                 for item in order["goods"]:
@@ -103,39 +104,22 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
                         endTimeAll = endTime[orderId][processId][taskId]
                     # Calculate task not on time
                     if(endTime[orderId][processId][taskId] > endTimeOrders[orderId]):
-                        numTaskNotOnTime += 1
+                        if(orderId not in orderViolatedDeadline):
+                            orderViolatedDeadline.append(orderId)
                     # add Task to Workforce
                     scheduleWorkforce['schedule'].append({
                         "orderId": orderId,
                         "processId": processId,
                         "taskId": taskId,
                         'employeeId': empAssignId,
+                        'machineId': machineAssignId ,
                         'startTime' : startTime[orderId][processId][taskId],
                         'endTime': endTime[orderId][processId][taskId],
-                        'machineId': machineAssignId 
                     })
         scheduleWorkforce['totalCost'] = totalCost
-        scheduleWorkforce['endTimeAll'] = endTimeAll
-        scheduleWorkforce['numTaskNotOnTime'] = numTaskNotOnTime
+        scheduleWorkforce['endDateTime'] = endTimeAll
+        scheduleWorkforce['startDateTime'] = (scheduleWorkforce['schedule'][0]['startTime'])
+        scheduleWorkforce['numOrderNotOnTime'] = len(orderViolatedDeadline)
         return scheduleWorkforce
                      
                     
-# from pymoo.core.mixed import MixedVariableGA
-# from pymoo.core.variable import Real, Integer
-# from pymoo.optimize import minimize
-
-# problem = MixedVariableProblem()
-
-# algorithm = MixedVariableGA(pop=10)
-
-# res = minimize(problem,
-#                algorithm,
-#                termination=('n_evals', 1000),
-#                seed=1,
-#                verbose=False)
-
-# print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
-# ORDERS = load.data["bills"]  #Array of orders
-# TASKS = load.data["fromStockJobTasks"]
-# LIST_TASK = helper.getListTask(ORDERS, TASKS)
-# print(LIST_TASK)

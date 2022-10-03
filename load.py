@@ -7,8 +7,7 @@ import json
 # Opening JSON file
 f = open('data.json', "r",encoding='utf-8')
 
-# returns JSON object as
-# a dictionary
+# Load data
 data = json.load(f)
 
 

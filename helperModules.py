@@ -1,5 +1,8 @@
 #------- Helper method  ----------#
+NUM_OBJECTIVES = 3
+OBJECTIVES_WEIGHT = [1, 1, 1]
 
+from cmath import log
 from datetime import datetime, timedelta
 
 # Convert a String time to timestamp
@@ -32,9 +35,42 @@ def getStartTimeShift(startTime, duration):
         startDateTime = datetime(nextDay.year, nextDay.month, nextDay.day, 8, 0, 0)
     return startDateTime.timestamp()
 
+def getDateTimeFromTimestamp(timestamp):
+    res = datetime.fromtimestamp(timestamp)
+    return res
+
 # Calculate cost of each employee with duration
 def getCost(employeeId, duration, baseSalary):
     return baseSalary[employeeId] * duration / 3600
+
+def getBestSolution(objectives, solutions) :
+    maxObjectives, minObjectives , rangeObjectives, bestSolution = list(),  list(), list(), list()
+    score = 999999999
+    for i in range(0, NUM_OBJECTIVES):
+        maxObjectives.append(0)
+        minObjectives.append(9999999999999999)
+        rangeObjectives.append(0)
+
+    for objective in objectives:
+        for i in range(0, NUM_OBJECTIVES):
+            maxObjectives[i] = max(maxObjectives[i], objective[i])
+            minObjectives[i] = min(minObjectives[i], objective[i])
+            
+            
+    
+    for i in range(0, NUM_OBJECTIVES):
+        rangeObjectives[i] = maxObjectives[i] - minObjectives[i]
+        if(rangeObjectives[i] == 0) : rangeObjectives[i] = 1
+    
+    for j in range(0, len(objectives)):
+        obj_score = 0
+        for i in range(0, NUM_OBJECTIVES):
+            obj_score += (objectives[j][i] - minObjectives[i]) / rangeObjectives[i] * OBJECTIVES_WEIGHT[i]
+        if( obj_score < score):
+            score = obj_score
+            bestSolution.append(solutions[j])
+
+    return bestSolution
 #test
 # task = {
 #       "id": "j1",
@@ -74,3 +110,11 @@ def getCost(employeeId, duration, baseSalary):
 # }
 # emp = Employee("62b1a3a691dbfba478012934", 300, [])
 # calculateDuration(task, avgSkill, emp)
+# F = [[2.69329133e+06, 1.66027347e+09, 0.00000000e+00],
+#  [2.61128124e+06, 1.66027443e+09, 0.00000000e+00],
+#  [2.59230963e+06, 1.66027493e+09,0.00000000e+00],
+#  [1.53467044e+06, 1.66027859e+09, 0.00000000e+00],
+#  [1.55488019e+06, 1.66027831e+09, 0.00000000e+00]]
+
+# a = getBestSolution(F)
+# print(a)

@@ -31,6 +31,12 @@ avgSkill = dict()
 # Base salary of each employee (per hour)
 baseSalary = dict()
 
+# Employee assign for tasks
+e = dict()
+
+# Machine assign for tasks
+m = dict()
+
 #------- Load raw data from json data ---------#
 ORDERS = load.data["bills"]  # List of orders
 TASKS = load.data["fromStockJobTasks"]    # List of tasks
