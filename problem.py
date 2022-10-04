@@ -1,6 +1,6 @@
 from pymoo.core.problem import ElementwiseProblem
 from pymoo.core.variable import Real, Integer, Choice, Binary
-from helperModules import calculateDuration, getStartTimeShift, getCost
+from helperModules import calculateDuration, getStartTimeShift, getCost, getTimeStamp
 
 from initializeData import startTime, baseSalary, endTime, endTimeOrders, endTimeResource,listEmployeeIds, e, m,  avgSkill, TASKS, MACHINES, EMPLOYEES, ORDERS
 
@@ -37,7 +37,19 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
                     if task["requiredAssets"] :
                         m[orderId][processId][taskId] = X[f"m {orderId} {processId} {taskId}"]
                     
-            
+        endTimeResource.clear()
+        for order in ORDERS :
+            orderId = order['id']
+            startTime[orderId] = dict()
+            endTime[orderId] = dict()
+            for item in order["goods"]:
+                processId = item['goodId']
+                endTime[orderId][processId] = dict()
+                startTime[orderId][processId] = dict()
+                for task in TASKS:
+                    taskId = task['id']
+                    startTime[orderId][processId][taskId] = getTimeStamp(order["startTime"])
+                    endTime[orderId][processId][taskId] = getTimeStamp(order["startTime"])
         # Get value of fitness functions 
         schedule = self.calcSchedule()
         f1 = schedule['totalCost']
@@ -49,6 +61,7 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
 
     # Evaluate schedule   
     def calcSchedule(self) :
+        endTimeResource.clear()
         scheduleWorkforce = dict()
         scheduleWorkforce['schedule'] = list()
         orderViolatedDeadline = list()
@@ -77,13 +90,13 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
                                 startTime[orderId][processId][taskId] = endTimePreceeding
                     
                     # If human resource is not available
-                    if(hasattr(endTimeResource, empAssignId)):
+                    if(empAssignId in endTimeResource.keys()):
                         if(startTime[orderId][processId][taskId] < endTimeResource[empAssignId]):
                             # Start time is endTime of emp resource
                             startTime[orderId][processId][taskId] = endTimeResource[empAssignId]
                     
                     # If machine resource is not available
-                    if(machineAssignId != "null" and hasattr(endTimeResource, machineAssignId)):
+                    if(machineAssignId != "null" and (machineAssignId in endTimeResource.keys())):
                         if(startTime[orderId][processId][taskId] < endTimeResource[machineAssignId]):
                             # Start time is endTime of emp resource
                             startTime[orderId][processId][taskId] = endTimeResource[machineAssignId]
@@ -95,7 +108,8 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
                     endTime[orderId][processId][taskId] = startTime[orderId][processId][taskId] + newDuration
                     # Calculate endtime human resource and machine Resource
                     endTimeResource[empAssignId] = endTime[orderId][processId][taskId]
-                    endTimeResource[machineAssignId] = endTime[orderId][processId][taskId]
+                    if(machineAssignId != "null" and (machineAssignId in endTimeResource.keys())):
+                        endTimeResource[machineAssignId] = endTime[orderId][processId][taskId]
 
                     # Calculate total cost
                     totalCost += getCost(empAssignId, newDuration, baseSalary)

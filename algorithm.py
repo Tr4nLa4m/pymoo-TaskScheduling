@@ -13,7 +13,7 @@ problem = MultiObjectiveMixedVariableProblem()
 
 # Get algorithm
 # algorithm = MixedVariableGA(pop_size=20, survival=RankAndCrowdingSurvival())
-algorithm = NSGA2(pop_size=300,
+algorithm = NSGA2(pop_size=100,
                   sampling=MixedVariableSampling(),
                   mating=MixedVariableMating(eliminate_duplicates=MixedVariableDuplicateElimination()),
                   mutation=PolynomialMutation(prob=0.1),
