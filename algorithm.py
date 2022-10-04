@@ -1,12 +1,12 @@
-from problem import MultiObjectiveMixedVariableProblem
+from problem.problem import MultiObjectiveMixedVariableProblem
 
 from pymoo.algorithms.moo.nsga2 import NSGA2, RankAndCrowdingSurvival
 from pymoo.core.mixed import MixedVariableGA
 from pymoo.operators.mutation.pm import PolynomialMutation
 from pymoo.core.mixed import MixedVariableMating, MixedVariableGA, MixedVariableSampling, MixedVariableDuplicateElimination
 from pymoo.optimize import minimize
-from writeData import writeOutput
-from helperModules import getBestSolution
+from utils.writeData import writeOutput
+from utils.helperModules import getBestSolution
 
 # Get problem
 problem = MultiObjectiveMixedVariableProblem()

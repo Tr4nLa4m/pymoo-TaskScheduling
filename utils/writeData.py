@@ -1,6 +1,6 @@
 # Python program to read
 import json
-from helperModules import getDateTimeFromTimestamp
+from utils.helperModules import getDateTimeFromTimestamp
 
 
 def writeOutput(schedule) :

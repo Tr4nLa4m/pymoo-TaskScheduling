@@ -1,8 +1,8 @@
 from pymoo.core.problem import ElementwiseProblem
 from pymoo.core.variable import Real, Integer, Choice, Binary
-from helperModules import calculateDuration, getStartTimeShift, getCost, getTimeStamp
+from utils.helperModules import calculateDuration, getStartTimeShift, getCost, getTimeStamp
 
-from initializeData import startTime, baseSalary, endTime, endTimeOrders, endTimeResource,listEmployeeIds, e, m,  avgSkill, TASKS, MACHINES, EMPLOYEES, ORDERS
+from utils.initializeData import startTime, baseSalary, endTime, endTimeOrders, endTimeResource,listEmployeeIds, e, m,  avgSkill, TASKS, MACHINES, EMPLOYEES, ORDERS
 
 class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
 

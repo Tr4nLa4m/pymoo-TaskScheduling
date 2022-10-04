@@ -1,9 +1,9 @@
 import sys
 import io
 # Import load to load data
-import load
+import utils.load as load
 # Import helper
-from helperModules import getTimeStamp
+from utils.helperModules import getTimeStamp
 # Use to print utf-8 encoded
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
