@@ -7,7 +7,7 @@ from pymoo.core.mixed import MixedVariableMating, MixedVariableGA, MixedVariable
 from pymoo.optimize import minimize
 from utils.writeData import writeOutput
 from utils.helperModules import getBestSolution
-from utils.config import POP_SIZE, PROB_MUTATION, N_GEN
+from config.configParams import POP_SIZE, PROB_MUTATION, N_GEN
 
 
 # Get problem
