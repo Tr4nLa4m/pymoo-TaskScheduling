@@ -7,23 +7,25 @@ from pymoo.core.mixed import MixedVariableMating, MixedVariableGA, MixedVariable
 from pymoo.optimize import minimize
 from utils.writeData import writeOutput
 from utils.helperModules import getBestSolution
+from utils.config import POP_SIZE, PROB_MUTATION, N_GEN
+
 
 # Get problem
 problem = MultiObjectiveMixedVariableProblem()
 
 # Get algorithm
 # algorithm = MixedVariableGA(pop_size=20, survival=RankAndCrowdingSurvival())
-algorithm = NSGA2(pop_size=100,
+algorithm = NSGA2(pop_size=POP_SIZE,
                   sampling=MixedVariableSampling(),
                   mating=MixedVariableMating(eliminate_duplicates=MixedVariableDuplicateElimination()),
-                  mutation=PolynomialMutation(prob=0.1),
+                  mutation=PolynomialMutation(prob=PROB_MUTATION),
                   eliminate_duplicates=MixedVariableDuplicateElimination(),
                   )
 
 
 res = minimize(problem,
                algorithm,
-               ('n_gen', 20),
+               ('n_gen', N_GEN),
                seed=1,
                verbose=False)
 

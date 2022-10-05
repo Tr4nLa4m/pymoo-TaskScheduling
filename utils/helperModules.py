@@ -43,6 +43,7 @@ def getDateTimeFromTimestamp(timestamp):
 def getCost(employeeId, duration, baseSalary):
     return baseSalary[employeeId] * duration / 3600
 
+# Calculate score for solutions and get best solution.
 def getBestSolution(objectives, solutions) :
     maxObjectives, minObjectives , rangeObjectives, bestSolution = list(),  list(), list(), list()
     score = 999999999
