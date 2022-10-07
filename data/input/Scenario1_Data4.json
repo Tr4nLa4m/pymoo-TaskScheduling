@@ -19,7 +19,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order2",
@@ -34,7 +34,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order3",
@@ -55,7 +55,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order4",
@@ -70,7 +70,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order5",
@@ -85,7 +85,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order6",
@@ -106,7 +106,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order7",
@@ -121,7 +121,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order8",
@@ -142,7 +142,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           },
           {
             "id": "Order9",
@@ -157,28 +157,7 @@
             ],
             "priority": 1,
             "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
-          },
-          {
-            "id": "Order10",
-            "code": "BIRE20220811.5527510",
-            "goods": [
-              {
-                "goodId": "Good14",
-                "quantity": 100,
-                "weight": 1,
-                "name": "Sản phẩm 14"
-              },
-              {
-                "goodId": "Good15",
-                "quantity": 100,
-                "weight": 1,
-                "name": "Sản phẩm 15"
-              }
-            ],
-            "priority": 1,
-            "startTime": "11-08-2022 08:10",
-            "deadline": "16-08-2022 11:59"
+            "deadline": "13-08-2022 11:59"
           }
     ],
     "fromStockHumanResources": [

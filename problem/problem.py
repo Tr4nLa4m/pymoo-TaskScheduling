@@ -131,8 +131,8 @@ class MultiObjectiveMixedVariableProblem(ElementwiseProblem):
                         'endTime': endTime[orderId][processId][taskId],
                     })
         scheduleWorkforce['totalCost'] = totalCost
-        scheduleWorkforce['endDateTime'] = endTimeAll
         scheduleWorkforce['startDateTime'] = (scheduleWorkforce['schedule'][0]['startTime'])
+        scheduleWorkforce['endDateTime'] = endTimeAll
         scheduleWorkforce['numOrderNotOnTime'] = len(orderViolatedDeadline)
         return scheduleWorkforce
                      

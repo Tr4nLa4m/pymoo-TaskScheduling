@@ -2,12 +2,14 @@
 NUM_OBJECTIVES = 3
 OBJECTIVES_WEIGHT = [1, 1, 1]
 
-from cmath import log
 from datetime import datetime, timedelta
 
 # Convert a String time to timestamp
 def getTimeStamp(stringTime):
-    res = datetime.strptime(stringTime, '%d-%m-%Y %H:%M')
+    formatDatetime = '%d-%m-%Y %H:%M'
+    if ("AM" in stringTime ) or ("PM" in stringTime) :
+        formatDatetime =  '%d-%m-%Y %H:%M %p'
+    res = datetime.strptime(stringTime, formatDatetime)
     return res.timestamp()
 
 # Calculate duration task time in practical from employee and skill level
@@ -28,11 +30,16 @@ def getStartTimeShift(startTime, duration):
     startDateTime = datetime.fromtimestamp(startTime)
     endDateTime = datetime.fromtimestamp(startTime + duration)
     nextDay = startDateTime + timedelta(days=1)
+    today12h = datetime(startDateTime.year, startDateTime.month, startDateTime.day, 12, 0 ,0).timestamp()
+    today13h = datetime(startDateTime.year, startDateTime.month, startDateTime.day, 13, 0 ,0).timestamp()
     startHour, endHour = startDateTime.hour, endDateTime.hour
     startMinute, endMinute = startDateTime.minute, endDateTime.minute
 
     if(startHour > 17 or (startHour == 17 and startMinute > 30) or endHour > 17 or (endHour == 17 and endMinute > 30)):    
         startDateTime = datetime(nextDay.year, nextDay.month, nextDay.day, 8, 0, 0)
+    
+    if(startTime < today12h and ((startTime + duration > today12h))):    
+        return today13h
     return startDateTime.timestamp()
 
 def getDateTimeFromTimestamp(timestamp):

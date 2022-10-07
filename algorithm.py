@@ -22,17 +22,25 @@ algorithm = NSGA2(pop_size=POP_SIZE,
                   eliminate_duplicates=MixedVariableDuplicateElimination(),
                   )
 
-
+# Minimize algorithm - details in doc of pymoo
 res = minimize(problem,
                algorithm,
                ('n_gen', N_GEN),
                seed=1,
                verbose=False)
 
+# Print solutions
 print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
-bestSolution = getBestSolution(res.F, res.X)
+
+# get List solutions to write
+# bestSolution = getBestSolution(res.F, res.X)
+schedules = list()
+# Out param is required
 out = dict()
-problem._evaluate(bestSolution[0], out)
+
+for solution in res.X :
+    problem._evaluate(solution, out)
+    schedules.append(problem.calcSchedule())
 
 # Write data
-writeOutput(problem.calcSchedule())
+writeOutput(schedules)

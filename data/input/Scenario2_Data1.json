@@ -37,7 +37,7 @@
         ],
         "priority": 1,
         "startTime": "11-08-2022 08:10",
-        "deadline": "13-08-2022 23:59"
+        "deadline": "16-08-2022 23:59"
       }
     ],
     "fromStockHumanResources": [
@@ -597,7 +597,7 @@
           "costWeight": 0.3333333333333333
         }
       }
-    ]
-
-}
+    ],
+    "a":1
+  }
   
